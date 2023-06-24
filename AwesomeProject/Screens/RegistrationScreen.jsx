@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   View,
@@ -8,67 +8,140 @@ import {
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+  Dimensions,
 } from "react-native";
-// import AddSvg from '../images/add.svg'
+import Icon from "react-native-vector-icons/Ionicons";
+
+const initialAuth = {
+  login: "",
+  email: "",
+  password: "",
+};
+
 
 export const RegistrationScreen = () => {
   // const inputAccessoryViewID = "uniqueID";
-  const initialText = "";
-  const [login, setLogin] = useState(initialText);
-  const [email, setEmail] = useState(initialText);
-  const [password, setPassword] = useState(initialText);
-  const [text, setText] = useState(initialText);
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [stateAuth, setStateAuth] = useState(initialAuth);
+  const [dimensions, setDimensions] = useState(0);
+
+  useEffect(() => {
+    const onChange = () => {
+      const width = Dimensions.get("window").width;
+      console.log(width);
+      setDimensions(width);
+    };
+
+    Dimensions.addEventListener("change", onChange);
+    return () => {
+      Dimensions.removeEventListener("change", onChange);
+    };
+  }, []);
+
+  const onKeyboardHide = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+    console.log(stateAuth);
+    setStateAuth(initialAuth);
+  };
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../images/background.jpg")}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+    <TouchableWithoutFeedback onPress={onKeyboardHide}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../images/background.jpg")}
+          resizeMode="cover"
+          style={styles.image}
         >
-          <View style={styles.form}>
-            <View style={styles.photoWrapper}></View>
-            <Text style={styles.title}>Реєстрація</Text>
-            <TextInput
-              style={styles.input}
-              // inputAccessoryViewID={inputAccessoryViewID}
-              onChangeText={setLogin}
-              value={login}
-              placeholder={"Логін"}
-            />
-            <TextInput
-              style={styles.input}
-              // inputAccessoryViewID={inputAccessoryViewID}
-              onChangeText={setEmail}
-              value={email}
-              placeholder={"Адреса електронної пошти"}
-            />
-            <TextInput
-              style={[styles.input, styles.lastInput]}
-              // inputAccessoryViewID={inputAccessoryViewID}
-              onChangeText={setPassword}
-              value={password}
-              placeholder={"Пароль"}
-            />
-            <View>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+          >
+            <View
+              style={{
+                ...styles.form,
+                height: isShowKeyboard ? 360 : 549,
+                // height: dimensions === 430 ? 549 : 470,
+              }}
+            >
+              <View style={styles.photoWrapper}>
+                <TouchableOpacity style={styles.addButton} activeOpacity={0.6}>
+                  <Icon
+                    style={styles.add}
+                    name="add-circle-outline"
+                    size={25}
+                  />
+                </TouchableOpacity>
+              </View>
+
+              <Text style={styles.title}>Реєстрація</Text>
+              <TextInput
+                style={styles.input}
+                // inputAccessoryViewID={inputAccessoryViewID}
+                value={stateAuth.login}
+                placeholder={"Логін"}
+                onChangeText={(value) =>
+                  setStateAuth((prevState) => ({ ...prevState, login: value }))
+                }
+                onFocus={() => {
+                  setIsShowKeyboard(true);
+                }}
+              />
+              <TextInput
+                style={styles.input}
+                // inputAccessoryViewID={inputAccessoryViewID}
+                value={stateAuth.email}
+                placeholder={"Адреса електронної пошти"}
+                onChangeText={(value) =>
+                  setStateAuth((prevState) => ({ ...prevState, email: value }))
+                }
+                onFocus={() => {
+                  setIsShowKeyboard(true);
+                }}
+              />
+              <TextInput
+                style={[styles.input, styles.lastInput]}
+                // inputAccessoryViewID={inputAccessoryViewID}
+                value={stateAuth.password}
+                placeholder={"Пароль"}
+                onChangeText={(value) =>
+                  setStateAuth((prevState) => ({
+                    ...prevState,
+                    password: value,
+                  }))
+                }
+                onFocus={() => {
+                  setIsShowKeyboard(true);
+                }}
+              />
               <TouchableOpacity
-                style={styles.btn}
                 activeOpacity={0.6}
-                onPress={setText}
+                style={{
+                  ...styles.btnShow,
+                  top: isShowKeyboard ? 305 : 305,
+                }}
               >
-                <Text style={styles.btnAuth}>Зареєструватися</Text>
+                <Text style={styles.btnShowText}>Показати</Text>
+                {/* <Button style={styles.btnShowText} title="Показати" /> */}
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnLink} activeOpacity={0.6}>
-                <Text style={styles.btnLinkIn}>Вже є акаунт? Увійти</Text>
-              </TouchableOpacity>
+              <View>
+                <TouchableOpacity
+                  style={styles.btn}
+                  activeOpacity={0.6}
+                  onPress={onKeyboardHide}
+                >
+                  <Text style={styles.btnAuth}>Зареєструватися</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.btnLink} activeOpacity={0.6}>
+                  <Text style={styles.btnLinkIn}>Вже є акаунт? Увійти</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </KeyboardAvoidingView>
-      </ImageBackground>
-    </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -105,8 +178,8 @@ const styles = StyleSheet.create({
   },
   form: {
     width: "100%",
-    height: 549,
-    position: "absolute",
+    // height: 549,
+    // position: "absolute",
     bottom: 0,
     backgroundColor: "#ffffff",
     paddingLeft: 16,
@@ -114,6 +187,15 @@ const styles = StyleSheet.create({
     paddingTop: 92,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+    alignSelf: "center",
+    ...Platform.select({
+      ios: {
+        position: "static",
+      },
+      android: {
+        position: "absolute",
+      },
+    }),
   },
   title: {
     fontFamily: "Roboto-Medium",
@@ -148,12 +230,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF6C00",
     borderRadius: 100,
     height: 50,
-    marginTop: 43,
     marginBottom: 16,
     justifyContent: "center",
     alignItems: "center",
   },
-
+  btnShow: {
+    position: "absolute",
+    // bottom: 237,
+    right: 30,
+  },
+  btnShowText: {
+    color: "#1B4371",
+    fontSize: 18,
+    fontFamily: "Roboto-Medium",
+  },
   btnAuth: {
     color: "#ffffff",
     fontSize: 16,
@@ -165,5 +255,13 @@ const styles = StyleSheet.create({
   btnLinkIn: {
     color: "#1B4371",
     fontSize: 16,
+  },
+  addButton: {
+    position: "absolute",
+    top: 80,
+    right: -12,
+  },
+  add: {
+    color: "#FF6C00",
   },
 });
