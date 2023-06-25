@@ -19,93 +19,104 @@ const initialAuth = {
 };
 
 export const LoginScreen = () => {
-      const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-    const [stateAuth, setStateAuth] = useState(initialAuth);
-    
-      const onKeyboardHide = () => {
-        setIsShowKeyboard(false);
-        Keyboard.dismiss();
-        console.log(stateAuth);
-        setStateAuth(initialAuth);
-      };
-    return (
-      <TouchableWithoutFeedback onPress={onKeyboardHide}>
-        <View style={styles.container}>
-          <ImageBackground
-            source={require("../images/background.jpg")}
-            resizeMode="cover"
-            style={styles.image}
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [stateLogin, setStateLogin] = useState(initialAuth);
+  console.log(isShowKeyboard);
+
+  const onKeyboardHide = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+    console.log(stateLogin);
+    setStateLogin(initialAuth);
+  };
+
+  const onLogin = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+    console.log(stateLogin);
+    setStateLogin(initialAuth);
+  };
+  return (
+    <TouchableWithoutFeedback onPress={onKeyboardHide}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../images/background.jpg")}
+          resizeMode="cover"
+          style={styles.image}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
-            <KeyboardAvoidingView
-              behavior={Platform.OS === "ios" ? "padding" : "height"}
-            >
-              <View style={styles.form}>
-                <Text style={styles.title}>Увійти</Text>
-                <TextInput
-                  style={styles.input}
-                  // inputAccessoryViewID={inputAccessoryViewID}
-                  value={stateAuth.email}
-                  placeholder={"Адреса електронної пошти"}
-                  onChangeText={(value) =>
-                    setStateAuth((prevState) => ({
-                      ...prevState,
-                      email: value,
-                    }))
-                  }
-                  onFocus={() => {
-                    setIsShowKeyboard(true);
-                  }}
-                />
-                <TextInput
-                  style={[styles.input, styles.lastInput]}
-                  // inputAccessoryViewID={inputAccessoryViewID}
-                  value={stateAuth.password}
-                  placeholder={"Пароль"}
-                  onChangeText={(value) =>
-                    setStateAuth((prevState) => ({
-                      ...prevState,
-                      password: value,
-                    }))
-                  }
-                  onFocus={() => {
-                    setIsShowKeyboard(true);
-                  }}
-                />
-                <TouchableOpacity
-                  activeOpacity={0.6}
-                  style={{
-                    ...styles.btnShow,
-                    top: isShowKeyboard ? 180 : 180,
-                  }}
-                >
-                  <Text style={styles.btnShowText}>Показати</Text>
-                  {/* <Button style={styles.btnShowText} title="Показати" /> */}
-                </TouchableOpacity>
-                {!isShowKeyboard && (
-                  <View>
-                    <TouchableOpacity
-                      style={styles.btn}
-                      activeOpacity={0.6}
-                      onPress={onKeyboardHide}
-                    >
-                      <Text style={styles.btnAuth}>Увійти</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.btnLink}
-                      activeOpacity={0.6}
-                    >
-                      <Text style={styles.btnLinkIn}>
-                        Немає акаунту? Зареєструватися
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-              </View>
-            </KeyboardAvoidingView>
-          </ImageBackground>
-        </View>
-      </TouchableWithoutFeedback>
-    );
+            <View style={styles.form}>
+              <Text style={styles.title}>Увійти</Text>
+              <TextInput
+                style={styles.input}
+                // inputAccessoryViewID={inputAccessoryViewID}
+                value={stateLogin.email}
+                placeholder={"Адреса електронної пошти"}
+                onChangeText={(value) =>
+                  setStateLogin((prevState) => ({
+                    ...prevState,
+                    email: value,
+                  }))
+                }
+                onFocus={() => {
+                  setIsShowKeyboard(true);
+                }}
+                onSubmitEditing={() => {
+                  setIsShowKeyboard(false);
+                }}
+              />
+              <TextInput
+                style={[styles.input, styles.lastInput]}
+                // inputAccessoryViewID={inputAccessoryViewID}
+                value={stateLogin.password}
+                placeholder={"Пароль"}
+                onChangeText={(value) =>
+                  setStateLogin((prevState) => ({
+                    ...prevState,
+                    password: value,
+                  }))
+                }
+                onFocus={() => {
+                  setIsShowKeyboard(true);
+                }}
+                onSubmitEditing={() => {
+                  setIsShowKeyboard(false);
+                }}
+              />
+              <TouchableOpacity
+                activeOpacity={0.6}
+                style={{
+                  ...styles.btnShow,
+                  top: isShowKeyboard ? 180 : 180,
+                }}
+              >
+                <Text style={styles.btnShowText}>Показати</Text>
+                {/* <Button style={styles.btnShowText} title="Показати" /> */}
+              </TouchableOpacity>
+              {!isShowKeyboard && (
+                <View>
+                  <TouchableOpacity
+                    style={styles.btn}
+                    activeOpacity={0.6}
+                    onPress={onLogin}
+                  >
+                    <Text style={styles.btnAuth}>Увійти</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.btnLink} activeOpacity={0.6}>
+                    <Text style={styles.btnLinkIn}>
+                      Немає акаунту? Зареєструватися
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
+  );
 };
 
 const styles = StyleSheet.create({

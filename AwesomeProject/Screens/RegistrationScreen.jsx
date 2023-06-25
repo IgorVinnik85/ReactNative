@@ -20,7 +20,6 @@ const initialAuth = {
   password: "",
 };
 
-
 export const RegistrationScreen = () => {
   // const inputAccessoryViewID = "uniqueID";
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -46,7 +45,9 @@ export const RegistrationScreen = () => {
     console.log(stateAuth);
     setStateAuth(initialAuth);
   };
-
+  const onLogin = () => {
+    console.log(stateLogin);
+  };
   return (
     <TouchableWithoutFeedback onPress={onKeyboardHide}>
       <View style={styles.container}>
@@ -87,6 +88,9 @@ export const RegistrationScreen = () => {
                 onFocus={() => {
                   setIsShowKeyboard(true);
                 }}
+                onSubmitEditing={() => {
+                  setIsShowKeyboard(false);
+                }}
               />
               <TextInput
                 style={styles.input}
@@ -98,6 +102,9 @@ export const RegistrationScreen = () => {
                 }
                 onFocus={() => {
                   setIsShowKeyboard(true);
+                }}
+                onSubmitEditing={() => {
+                  setIsShowKeyboard(false);
                 }}
               />
               <TextInput
@@ -114,6 +121,9 @@ export const RegistrationScreen = () => {
                 onFocus={() => {
                   setIsShowKeyboard(true);
                 }}
+                onSubmitEditing={() => {
+                  setIsShowKeyboard(false);
+                }}
               />
               <TouchableOpacity
                 activeOpacity={0.6}
@@ -129,7 +139,7 @@ export const RegistrationScreen = () => {
                 <TouchableOpacity
                   style={styles.btn}
                   activeOpacity={0.6}
-                  onPress={onKeyboardHide}
+                  onPress={onLogin}
                 >
                   <Text style={styles.btnAuth}>Зареєструватися</Text>
                 </TouchableOpacity>
