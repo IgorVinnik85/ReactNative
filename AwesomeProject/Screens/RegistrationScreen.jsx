@@ -46,7 +46,7 @@ export const RegistrationScreen = () => {
     setStateAuth(initialAuth);
   };
   const onLogin = () => {
-    console.log(stateLogin);
+    console.log(stateAuth);
   };
   return (
     <TouchableWithoutFeedback onPress={onKeyboardHide}>
