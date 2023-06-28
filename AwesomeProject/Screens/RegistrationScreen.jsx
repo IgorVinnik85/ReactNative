@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
 } from "react-native";
+import "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
 
 const initialAuth = {
@@ -20,7 +21,7 @@ const initialAuth = {
   password: "",
 };
 
-export const RegistrationScreen = () => {
+export default function RegistrationScreen({ navigation }) {
   // const inputAccessoryViewID = "uniqueID";
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [stateAuth, setStateAuth] = useState(initialAuth);
@@ -143,7 +144,11 @@ export const RegistrationScreen = () => {
                 >
                   <Text style={styles.btnAuth}>Зареєструватися</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.btnLink} activeOpacity={0.6}>
+                <TouchableOpacity
+                  style={styles.btnLink}
+                  activeOpacity={0.6}
+                  onPress={() => navigation.navigate("Login")}
+                >
                   <Text style={styles.btnLinkIn}>Вже є акаунт? Увійти</Text>
                 </TouchableOpacity>
               </View>
@@ -181,7 +186,7 @@ const styles = StyleSheet.create({
         marginTop: -50,
       },
     }),
-    // marginTop: Platform.OS === "ios" ? 325 : 220,
+
   },
   photoWrapperForm: {
     // marginBottom: 100,

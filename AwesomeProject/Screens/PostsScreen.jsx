@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-export const PostsScreen = () => {
+export default function PostsScreen() {
   return (
     <>
       <View style={styles.titleWrap}>
@@ -19,10 +20,10 @@ export const PostsScreen = () => {
           </View>
         </View>
       </View>
-      <View style={styles.btnWrap}>
+      {/* <View style={styles.btnWrap}>
         <View style={styles.btnWrapIcons}>
           <TouchableOpacity activeOpacity={0.6}>
-            <Icon  name="grid-outline" size={30} />
+            <Icon name="grid-outline" size={30} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.addOutline} activeOpacity={0.6}>
             <View style={styles.addOutlineWrap}>
@@ -33,7 +34,7 @@ export const PostsScreen = () => {
             <Icon style={styles.person} name="person-outline" size={30} />
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
     </>
   );
 };
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
     paddingBottom: 11,
     borderBottomColor: "#E8E8E8",
     borderBottomWidth: 1,
+    backgroundColor: '#FFFFFF',
   },
   title: {
     color: "#212121",

@@ -10,7 +10,6 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
-  Dimensions,
 } from "react-native";
 
 const initialAuth = {
@@ -18,23 +17,24 @@ const initialAuth = {
   password: "",
 };
 
-export const LoginScreen = () => {
+export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [stateLogin, setStateLogin] = useState(initialAuth);
-  console.log(isShowKeyboard);
+  // console.log(isShowKeyboard);
 
   const onKeyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(stateLogin);
+    // console.log(stateLogin);
     setStateLogin(initialAuth);
   };
 
   const onLogin = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(stateLogin);
+    // console.log(stateLogin);
     setStateLogin(initialAuth);
+  navigation.navigate("Home");
   };
   return (
     <TouchableWithoutFeedback onPress={onKeyboardHide}>
@@ -105,7 +105,10 @@ export const LoginScreen = () => {
                     <Text style={styles.btnAuth}>Увійти</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.btnLink} activeOpacity={0.6}>
-                    <Text style={styles.btnLinkIn}>
+                    <Text
+                      style={styles.btnLinkIn}
+                      onPress={() => navigation.navigate("Registration")}
+                    >
                       Немає акаунту? Зареєструватися
                     </Text>
                   </TouchableOpacity>
