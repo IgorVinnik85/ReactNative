@@ -19,7 +19,7 @@ import MapPin from "../images/map-pin.svg";
 
 import Icon from "react-native-vector-icons/Ionicons";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -43,20 +43,34 @@ export default function ProfileScreen() {
             <Image source={require("../images/rect.jpg")} style={styles.img} />
             <Text style={styles.titleImg}>Ліс</Text>
             <View style={styles.infoAllWrap}>
-              <View style={styles.infoWrap}>
+              <TouchableOpacity
+                style={styles.infoWrap}
+                activeOpacity={0.6}
+                onPress={() => {
+                  navigation.navigate("CommentsScreen");
+                }}
+              >
                 <MssageCircle></MssageCircle>
                 <Text style={styles.infoText}>8</Text>
-              </View>
+              </TouchableOpacity>
               <View style={[styles.infoWrap, styles.secondInfo]}>
                 <ThumbsUp></ThumbsUp>
                 <Text style={styles.infoText}>153</Text>
               </View>
-              <View style={styles.infoWrap}>
+              <TouchableOpacity
+                style={styles.infoWrap}
+                activeOpacity={0.6}
+                onPress={() =>
+                  navigation.navigate("Map", {
+                    location: "Kiev, Ukraine",
+                  })
+                }
+              >
                 <MapPin></MapPin>
                 <Text style={[styles.infoText, styles.infoTextLocation]}>
                   Ukraine
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
           {/* <View style={styles.btnWrap}>
@@ -82,7 +96,7 @@ export default function ProfileScreen() {
       </ImageBackground>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -169,9 +183,9 @@ const styles = StyleSheet.create({
   },
   secondInfo: {
     marginRight: 140,
-    },
-    infoTextLocation: {
-      textDecorationLine: 'underline',
+  },
+  infoTextLocation: {
+    textDecorationLine: "underline",
   },
   btnWrap: {
     flex: 0,

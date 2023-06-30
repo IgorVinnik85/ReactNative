@@ -13,12 +13,16 @@ import {
 import Arrow from "../images/arrow-left.svg";
 import Send from "../images/send.svg";
 
-export default function CommentsScreen() {
+export default function CommentsScreen({ navigation }) {
   return (
     <>
       <View style={styles.title}>
         <Text>Коментарі</Text>
-        <TouchableOpacity style={styles.arrowSvg} activeOpacity={0.6}>
+        <TouchableOpacity
+          style={styles.arrowSvg}
+          activeOpacity={0.6}
+          onPress={() => navigation.goBack()}
+        >
           <Arrow></Arrow>
         </TouchableOpacity>
       </View>
@@ -38,7 +42,7 @@ export default function CommentsScreen() {
       </View>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   title: {
@@ -92,9 +96,9 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingLeft: 16,
   },
-    sendSvg: {
-        position: 'absolute',
-        right: 24,
-        bottom: 7,
+  sendSvg: {
+    position: "absolute",
+    right: 24,
+    bottom: 7,
   },
 });

@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-export default function PostsScreen() {
+import MssageCircle from "../images/message-circle.svg";
+import MapPin from "../images/map-pin.svg";
+export default function PostsScreen({ navigation }) {
   return (
     <>
       <View style={styles.titleWrap}>
@@ -19,25 +19,34 @@ export default function PostsScreen() {
             <Text style={styles.profileEmail}>axelocc123@gmail.com</Text>
           </View>
         </View>
-      </View>
-      {/* <View style={styles.btnWrap}>
-        <View style={styles.btnWrapIcons}>
-          <TouchableOpacity activeOpacity={0.6}>
-            <Icon name="grid-outline" size={30} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.addOutline} activeOpacity={0.6}>
-            <View style={styles.addOutlineWrap}>
-              <Icon style={styles.gridOutline} name="add-outline" size={30} />
+        <View>
+          <Image source={require("../images/rect.jpg")} style={styles.img} />
+          <Text style={styles.titleImg}>Ліс</Text>
+          <View style={styles.infoAllWrap}>
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => {
+                navigation.navigate("CommentsScreen");
+              }}
+            >
+              <View style={styles.infoWrap}>
+                <MssageCircle></MssageCircle>
+                <Text style={styles.infoText}>8</Text>
+              </View>
+            </TouchableOpacity>
+
+            <View style={styles.infoWrap}>
+              <MapPin></MapPin>
+              <Text style={[styles.infoText, styles.infoTextLocation]}>
+                Ukraine
+              </Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.6}>
-            <Icon style={styles.person} name="person-outline" size={30} />
-          </TouchableOpacity>
+          </View>
         </View>
-      </View> */}
+      </View>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -58,7 +67,7 @@ const styles = StyleSheet.create({
     paddingBottom: 11,
     borderBottomColor: "#E8E8E8",
     borderBottomWidth: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
   title: {
     color: "#212121",
@@ -134,9 +143,42 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 64,
   },
-    addButton: {
-        position: 'absolute',
-        bottom: 7,
-        right: 16,
+  addButton: {
+    position: "absolute",
+    bottom: 7,
+    right: 16,
+  },
+  img: {
+    width: "auto",
+    height: 240,
+    marginBottom: 8,
+  },
+  titleImg: {
+    color: "#212121",
+    fontSize: 16,
+    fontFamily: "Roboto-Medium",
+    marginBottom: 8,
+  },
+  infoWrap: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
+  infoText: {
+    color: "#212121",
+    fontSize: 16,
+    fontFamily: "Roboto-Medium",
+  },
+  infoAllWrap: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 46,
+  },
+  secondInfo: {
+    marginRight: 140,
+  },
+  infoTextLocation: {
+    textDecorationLine: "underline",
   },
 });
