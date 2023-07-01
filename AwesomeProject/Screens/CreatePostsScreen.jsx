@@ -82,8 +82,8 @@ export default function CreatePostsScreen({ navigation }) {
                 if (cameraRef) {
                   const { uri } = await cameraRef.takePictureAsync();
                   const location = await Location.getCurrentPositionAsync();
-                  console.log(location.coords.latitude);
-                  console.log(location.coords.longitude);
+                  // console.log(location.coords.latitude);
+                  // console.log(location.coords.longitude);
 
                   await MediaLibrary.createAssetAsync(uri);
                 }

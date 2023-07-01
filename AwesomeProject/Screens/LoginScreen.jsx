@@ -122,7 +122,7 @@ export default function LoginScreen({ navigation }) {
                   <TouchableOpacity
                     style={styles.btn}
                     activeOpacity={0.6}
-                    onPress={loginDB}
+                    onPress={onLogin}
                   >
                     <Text style={styles.btnAuth}>Увійти</Text>
                   </TouchableOpacity>

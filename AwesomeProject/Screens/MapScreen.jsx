@@ -11,9 +11,9 @@ import Arrow from "../images/arrow-left.svg";
 import * as Location from "expo-location";
 
 export default function MapScreen({ navigation, route }) {
-  const [location, setLocation] = useState(null);
-  const locationPost = route.params.location;
-  console.log(location);
+  // const [location, setLocation] = useState(null);
+  // const locationPost = route.params.location;
+  // console.log(location);
 
   useEffect(() => {
     (async () => {
@@ -22,14 +22,14 @@ export default function MapScreen({ navigation, route }) {
         console.log("Permission to access location was denied");
       }
 
-      let location = await Location.getCurrentPositionAsync({
-        locationPost,
-      });
-      const coords = {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      };
-      setLocation(coords);
+      // let location = await Location.getCurrentPositionAsync({
+      //   locationPost,
+      // });
+      // const coords = {
+      //   latitude: location.coords.latitude,
+      //   longitude: location.coords.longitude,
+      // };
+      // setLocation(coords);
     })();
   }, []);
 
@@ -49,17 +49,18 @@ export default function MapScreen({ navigation, route }) {
         <MapView
           style={styles.mapStyle}
           region={{
-            ...location,
+            latitude: 50.5218788,
+            longitude: 30.5020416,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05,
           }}
           showsUserLocation={true}
         >
-          {location && (
-            <Marker
-              title="I am here"
-              coordinate={location}
-              description="Hello"
-            />
-          )}
+          <Marker
+            title="I am here"
+            coordinate={{latitude: 50.5218788, longitude: 30.5020416 }}
+            description="Hello"
+          />
         </MapView>
       </View>
     </>
