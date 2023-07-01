@@ -12,6 +12,14 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../config";
+
 const initialAuth = {
   email: "",
   password: "",
@@ -20,21 +28,35 @@ const initialAuth = {
 export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [stateLogin, setStateLogin] = useState(initialAuth);
-  // console.log(isShowKeyboard);
+  console.log(stateLogin);
 
   const onKeyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    // console.log(stateLogin);
     setStateLogin(initialAuth);
+  };
+  const loginDB = async ({ email, password }) => {
+    try {
+      const credentials = await signInWithEmailAndPassword(
+        auth,
+        "axelocc123@gmail.com",
+        "Axelocc"
+      );
+      Keyboard.dismiss();
+      setStateLogin(initialAuth);
+      navigation.navigate("Home");
+      console.log(credentials.user);
+      return credentials.user;
+    } catch (error) {
+      throw error;
+    }
   };
 
   const onLogin = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    // console.log(stateLogin);
     setStateLogin(initialAuth);
-  navigation.navigate("Home");
+    navigation.navigate("Home");
   };
   return (
     <TouchableWithoutFeedback onPress={onKeyboardHide}>
@@ -100,7 +122,7 @@ export default function LoginScreen({ navigation }) {
                   <TouchableOpacity
                     style={styles.btn}
                     activeOpacity={0.6}
-                    onPress={onLogin}
+                    onPress={loginDB}
                   >
                     <Text style={styles.btnAuth}>Увійти</Text>
                   </TouchableOpacity>
@@ -120,7 +142,7 @@ export default function LoginScreen({ navigation }) {
       </View>
     </TouchableWithoutFeedback>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

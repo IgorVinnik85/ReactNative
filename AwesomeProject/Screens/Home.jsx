@@ -6,7 +6,6 @@ import CreatePostsScreen from "./CreatePostsScreen";
 import Send from "../images/grid.svg";
 import New from "../images/new.svg";
 import User from "../images/user.svg";
-import Trash from "../images/trash.svg";
 const Tabs = createBottomTabNavigator();
 
 export default function Home() {

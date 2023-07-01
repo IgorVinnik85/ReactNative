@@ -18,6 +18,7 @@ import CameraSvg from "../images/camera.svg";
 import MapPin from "../images/map-pin.svg";
 import Trash from "../images/trash.svg";
 import SyncOutline from "react-native-vector-icons/Ionicons";
+import * as Location from "expo-location";
 
 export default function CreatePostsScreen({ navigation }) {
   const [description, setDescription] = useState("");
@@ -25,6 +26,7 @@ export default function CreatePostsScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  console.log(cameraRef);
 
   useEffect(() => {
     (async () => {
@@ -79,6 +81,10 @@ export default function CreatePostsScreen({ navigation }) {
               onPress={async () => {
                 if (cameraRef) {
                   const { uri } = await cameraRef.takePictureAsync();
+                  const location = await Location.getCurrentPositionAsync();
+                  console.log(location.coords.latitude);
+                  console.log(location.coords.longitude);
+
                   await MediaLibrary.createAssetAsync(uri);
                 }
               }}

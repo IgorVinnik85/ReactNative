@@ -12,7 +12,7 @@ import CommentsScreen from "./Screens/CommentsScreen";
 import ProfileScreen from "./Screens/ ProfileScreen";
 import Home from "./Screens/Home";
 import MapScreen from "./Screens/MapScreen";
-
+import { store, persistor } from "./Redux/store";
 const MainStack = createStackNavigator();
 
 export default function App() {
@@ -57,3 +57,4 @@ export default function App() {
 //     justifyContent: 'center',
 //   },
 // });
+ 

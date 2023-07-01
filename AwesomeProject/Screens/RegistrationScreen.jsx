@@ -15,11 +15,20 @@ import {
 import "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../config";
+
 const initialAuth = {
   login: "",
   email: "",
   password: "",
 };
+
 
 export default function RegistrationScreen({ navigation }) {
   // const inputAccessoryViewID = "uniqueID";
@@ -33,22 +42,36 @@ export default function RegistrationScreen({ navigation }) {
       console.log(width);
       setDimensions(width);
     };
-
     Dimensions.addEventListener("change", onChange);
     return () => {
       Dimensions.removeEventListener("change", onChange);
     };
   }, []);
 
+   const registerDB = async ({ email, password }) => {
+     try {
+       const test = await createUserWithEmailAndPassword(
+         auth,
+         stateAuth.email,
+         stateAuth.password
+       );
+       console.log(test)
+          navigation.navigate("Login");
+     } catch (error) {
+       console.log(error)
+       throw error;
+     }
+   };
+
   const onKeyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(stateAuth);
+    // console.log(stateAuth);
     setStateAuth(initialAuth);
   };
-  const onLogin = () => {
-    console.log(stateAuth);
-  };
+  // const onLogin = () => {
+  //   console.log(stateAuth);
+  // };
   return (
     <TouchableWithoutFeedback onPress={onKeyboardHide}>
       <View style={styles.container}>
@@ -140,7 +163,7 @@ export default function RegistrationScreen({ navigation }) {
                 <TouchableOpacity
                   style={styles.btn}
                   activeOpacity={0.6}
-                  onPress={onLogin}
+                  onPress={registerDB}
                 >
                   <Text style={styles.btnAuth}>Зареєструватися</Text>
                 </TouchableOpacity>

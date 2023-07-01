@@ -35,12 +35,20 @@ export default function PostsScreen({ navigation }) {
               </View>
             </TouchableOpacity>
 
-            <View style={styles.infoWrap}>
+            <TouchableOpacity
+              style={styles.infoWrap}
+              activeOpacity={0.6}
+              onPress={() =>
+                navigation.navigate("Map", {
+                  location: "Kiev, Ukraine",
+                })
+              }
+            >
               <MapPin></MapPin>
               <Text style={[styles.infoText, styles.infoTextLocation]}>
                 Ukraine
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
